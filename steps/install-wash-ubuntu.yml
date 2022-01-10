@@ -1,0 +1,3 @@
+steps:
+  - bash: sudo snap install wash --devmode --edge
+    displayName: "Install wash"

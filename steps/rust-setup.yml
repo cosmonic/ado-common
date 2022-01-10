@@ -1,0 +1,3 @@
+steps:
+  - bash: rustup update && rustup component add clippy
+    displayName: Install latest Rust stable toolchain

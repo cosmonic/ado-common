@@ -1,0 +1,8 @@
+steps:
+  - bash: cargo fmt -- --check && cargo clippy
+    displayName: Check formatting and clippy
+    workingDirectory: $[ coalesce(variables.working-directory, './') ]
+
+  - bash: cargo test --verbose --doc -- --nocapture
+    displayName: Run tests
+    workingDirectory: $[ coalesce(variables.working-directory, './') ]
