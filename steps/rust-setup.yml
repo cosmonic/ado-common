@@ -15,5 +15,5 @@ steps:
       - bash: rustup component add ${{ join(' ', parameters.components) }}
         displayName: Add additional rust components
   - ${{ if gt(length(parameters.targets), 0) }}:
-      - bash: rustup component add ${{ join(' ', parameters.targets) }}
+      - bash: rustup target add ${{ join(' ', parameters.targets) }}
         displayName: Add additional rust targets
