@@ -1,3 +1,0 @@
-steps:
-  - bash: rustup update && rustup target add wasm32-unknown-unknown && rustup component add clippy
-    displayName: Install latest Rust stable toolchain

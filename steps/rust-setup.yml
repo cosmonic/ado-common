@@ -1,3 +1,20 @@
+parameters:
+# Extra components to install
+- name: components
+  type: object
+  default: []
+# Additional targets to install
+- name: targets
+  type: object
+  default: []
+
 steps:
   - bash: rustup update && rustup component add clippy
     displayName: Install latest Rust stable toolchain
+- ${{ if gt(length(parameters.components), 0) }}:
+  - bash: rustup component add ${{ join(' ', parameters.components) }}
+    displayName: Add additional rust components
+- ${{ if gt(length(parameters.targets), 0) }}:
+  - bash: rustup component add ${{ join(' ', parameters.targets) }}
+    displayName: Add additional rust targets
+
