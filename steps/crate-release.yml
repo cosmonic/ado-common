@@ -1,0 +1,16 @@
+parameters:
+  - name: workingDirectory
+    type: string
+    default: "./"
+  - name: cratesToken
+    type: string
+
+steps:
+  - script: cargo login $(CRATES_TOKEN)
+    displayName: Cargo login
+    env:
+      CRATES_TOKEN: ${{ parameters.cratesToken }}
+
+  - script: cargo publish --no-verify
+    displayName: Cargo publish
+    workingDirectory: ${{ parameters.workingDirectory }}

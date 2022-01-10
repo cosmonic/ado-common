@@ -9,11 +9,11 @@ parameters:
     default: []
 
 steps:
-  - bash: rustup update && rustup component add clippy
+  - script: rustup update && rustup component add clippy
     displayName: Install latest Rust stable toolchain
   - ${{ if gt(length(parameters.components), 0) }}:
-      - bash: rustup component add ${{ join(' ', parameters.components) }}
+      - script: rustup component add ${{ join(' ', parameters.components) }}
         displayName: Add additional rust components
   - ${{ if gt(length(parameters.targets), 0) }}:
-      - bash: rustup target add ${{ join(' ', parameters.targets) }}
+      - script: rustup target add ${{ join(' ', parameters.targets) }}
         displayName: Add additional rust targets

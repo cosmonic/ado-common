@@ -4,10 +4,10 @@ parameters:
     default: "./"
 
 steps:
-  - bash: cargo fmt -- --check && cargo clippy
+  - script: cargo fmt -- --check && cargo clippy
     displayName: Check formatting and clippy
     workingDirectory: ${{ parameters.workingDirectory }}
 
-  - bash: cargo test --verbose --doc -- --nocapture
+  - script: cargo test --verbose --doc -- --nocapture
     displayName: Run tests
     workingDirectory: ${{ parameters.workingDirectory }}

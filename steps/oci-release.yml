@@ -1,0 +1,20 @@
+parameters:
+  - name: ociUsername
+    type: string
+  - name: ociPassword
+    type: string
+  - name: ociUrl
+    type: string
+  - name: ociRepository
+    type: string
+  - name: ociVersion
+    type: string
+  - name: artifactPath
+    type: string
+
+steps:
+  - script: wash reg push ${{ parameters.ociUrl }}/${{ parameters.ociRepository }}:${{ parameters.ociVersion }} ${{ parameters.artifactPath }} -o json
+    displayName: Push artifact to OCI registry
+    env:
+      WASH_REG_USER: ${{ parameters.ociUsername }}
+      WASH_REG_PASSWORD: ${{ parameters.ociPassword }}
