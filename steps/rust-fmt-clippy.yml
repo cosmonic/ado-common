@@ -1,0 +1,9 @@
+parameters:
+  - name: workingDirectory
+    type: string
+    default: "./"
+
+steps:
+  - script: cargo fmt -- --check && cargo clippy
+    displayName: Check formatting and clippy
+    workingDirectory: ${{ parameters.workingDirectory }}

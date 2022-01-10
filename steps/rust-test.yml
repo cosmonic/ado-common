@@ -4,9 +4,9 @@ parameters:
     default: "./"
 
 steps:
-  - script: cargo fmt -- --check && cargo clippy
-    displayName: Check formatting and clippy
-    workingDirectory: ${{ parameters.workingDirectory }}
+  - template: rust-fmt-clippy.yml
+    parameters:
+      workingDirectory: ${{ parameters.workingDirectory }}
 
   - script: cargo test --verbose --doc -- --nocapture
     displayName: Run tests
