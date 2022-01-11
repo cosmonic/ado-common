@@ -1,4 +1,13 @@
-# TODO: Set up for all OS types similar to what is found here https://github.com/crate-ci/azure-pipelines/blob/master/install-rust.yml
 steps:
-  - bash: sudo snap install wash --devmode --edge
-    displayName: "Install wash"
+  - script: sudo snap install wash --devmode --edge
+    displayName: "Install wash (linux)"
+    condition: eq(variables['Agent.OS'], 'Linux')
+  - script: |
+      brew tap wasmcloud/wasmcloud
+      brew install wash
+    displayName: "Install wash (mac)"
+    condition: eq(variables['Agent.OS'], 'Darwin')
+  - script: cargo install wash-cli
+    displayName: "Install wash (Fallback)"
+    # If it isn't Mac or Linux, we should fall back to a cargo install
+    condition: not(or(eq(variables['Agent.OS'], 'Linux'), eq(variables['Agent.OS'], 'Darwin')))
