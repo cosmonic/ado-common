@@ -2,8 +2,8 @@ parameters:
   # The name of the project
   - name: projectName
     type: string
-  # If the target folder should be cached
-  - name: cacheTarget
+  # If the cargo registry folder should be cached
+  - name: cacheRegistry
     type: boolean
     default: true
   # The working directory where your Cargo.toml is located. Defaults to the current directory
@@ -12,16 +12,16 @@ parameters:
     default: "."
 
 steps:
-  - ${{ if parameters.cacheTarget }}:
+  - ${{ if parameters.cacheRegistry }}:
       - task: Cache@2
         inputs:
-          key: '"rust-${{ parameters.projectName }}-target" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
-          path: $(working-directory)/target
-        displayName: Cache target folder
+          key: '"rust-${{ parameters.projectName }}-cache" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
+          path: $(HOME)/.cargo/registry
+        displayName: Cache cargo cache folder
         continueOnError: true
   - task: Cache@2
     inputs:
-      key: '"rust-${{ parameters.projectName }}-cache" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
-      path: $(HOME)/.cargo/registry
-    displayName: Cache cargo cache folder
+      key: '"rust-${{ parameters.projectName }}-target" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
+      path: $(working-directory)/target
+    displayName: Cache target folder
     continueOnError: true
