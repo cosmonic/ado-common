@@ -2,12 +2,20 @@ parameters:
   - name: workingDirectory
     type: string
     default: "./"
+  - name: runDocTests
+    type: boolean
+    default: true
 
 steps:
   - template: rust-fmt-clippy.yml
     parameters:
       workingDirectory: ${{ parameters.workingDirectory }}
 
-  - script: cargo test --verbose --doc -- --nocapture
+  - script: cargo test --verbose -- --nocapture
     displayName: Run tests
     workingDirectory: ${{ parameters.workingDirectory }}
+
+  - ${{ if parameters.runDocTests }}:
+      - script: cargo test --verbose --doc -- --no-capture
+        displayName: Run doc tests
+        workingDirectory: ${{ parameters.workingDirectory }}
