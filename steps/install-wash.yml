@@ -7,7 +7,10 @@ steps:
       brew install wash
     displayName: "Install wash (mac)"
     condition: eq(variables['Agent.OS'], 'Darwin')
+  - powershell: choco install wash --version 0.8.1 -y
+    displayName: "Install wash (windows)"
+    condition: eq(variables['Agent.OS'], 'Windows_NT')
   - script: cargo install wash-cli
     displayName: "Install wash (Fallback)"
-    # If it isn't Mac or Linux, we should fall back to a cargo install
-    condition: not(or(eq(variables['Agent.OS'], 'Linux'), eq(variables['Agent.OS'], 'Darwin')))
+    # If for some reason it isn't set (like a self-hosted runner), fall back to cargo install
+    condition: not(or(eq(variables['Agent.OS'], 'Linux'), eq(variables['Agent.OS'], 'Darwin'), eq(variables['Agent.OS'], 'Windows_NT')))
