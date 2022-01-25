@@ -25,17 +25,16 @@ steps:
           Write-Host "##vso[task.setvariable variable=homedir]$env:USERPROFILE"
         displayName: Get Home directory (windows)
         condition: eq(variables['Agent.OS'], 'Windows_NT')
-  - ${{ if parameters.cacheRegistry }}:
       - task: Cache@2
         inputs:
-          key: '"rust-${{ parameters.projectName }}-cache" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
+          key: '"rust-${{ parameters.projectName }}-cache" | "$(Agent.OS)" | ${{ parameters.workingDirectory }}/Cargo.toml'
           path: $(homedir)/.cargo/registry
         displayName: Cache cargo cache folder
         continueOnError: true
-  - ${{ if parameters.cacheRegistry }}:
+  - ${{ if parameters.cacheTarget }}:
       - task: Cache@2
         inputs:
-          key: '"rust-${{ parameters.projectName }}-target" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
+          key: '"rust-${{ parameters.projectName }}-target" | "$(Agent.OS)" | ${{ parameters.workingDirectory }}/Cargo.toml'
           path: $(working-directory)/target
         displayName: Cache target folder
         continueOnError: true
