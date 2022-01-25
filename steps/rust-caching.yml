@@ -31,7 +31,7 @@ steps:
           path: $(homedir)/.cargo/registry
         displayName: Cache cargo cache folder
         continueOnError: true
-  - ${{ if parameters.cacheRegistry }}:
+  - ${{ if parameters.cacheTarget }}:
       - task: Cache@2
         inputs:
           key: '"rust-${{ parameters.projectName }}-target" | "$(Agent.OS)" | "${{ parameters.workingDirectory }}/Cargo.toml"'
