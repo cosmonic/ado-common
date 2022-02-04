@@ -38,3 +38,5 @@ steps:
           path: $(working-directory)/target
         displayName: Cache target folder
         continueOnError: true
+  - bash: cargo clean # there's an undiagnosed issue on mac where restoring from cache leaves things in an uncompilable state
+    condition: eq(variables['Agent.OS'], 'Darwin')
