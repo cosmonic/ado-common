@@ -4,6 +4,6 @@ parameters:
     default: "./"
 
 steps:
-  - script: cargo fmt -- --check && cargo clippy
+  - script: cargo fmt -- --check && cargo clippy -- -D warnings
     displayName: Check formatting and clippy
     workingDirectory: ${{ parameters.workingDirectory }}
