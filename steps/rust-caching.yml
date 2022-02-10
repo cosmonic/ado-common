@@ -14,10 +14,6 @@ parameters:
   - name: workingDirectory
     type: string
     default: "."
-  # Set manually on a pipeline run for builds experiencing cache issues
-  - name: purgeCache
-    type: boolean
-    default: false
 
 steps:
   - ${{ if parameters.cacheRegistry }}:
@@ -42,7 +38,7 @@ steps:
           path: ${{ parameters.workingDirectory }}/target
         displayName: Cache target folder
         continueOnError: true
-  - ${{ if parameters.purgeCache }}:
-      - script: cargo clean
-        workingDirectory: ${{ parameters.workingDirectory }}
-        displayName: Blowing away cache
+  - script: cargo clean
+    workingDirectory: ${{ parameters.workingDirectory }}
+    displayName: Blowing away cache
+    condition: coalesce(variables.purgeCache, false)
