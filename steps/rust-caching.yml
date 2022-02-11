@@ -38,7 +38,3 @@ steps:
           path: ${{ parameters.workingDirectory }}/target
         displayName: Cache target folder
         continueOnError: true
-  - script: cargo clean
-    workingDirectory: ${{ parameters.workingDirectory }}
-    displayName: Blowing away cache
-    condition: coalesce(variables.purgeCache, false)
