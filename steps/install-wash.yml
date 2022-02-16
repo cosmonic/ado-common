@@ -7,7 +7,7 @@ steps:
       brew install wash
     displayName: "Install wash (mac)"
     condition: eq(variables['Agent.OS'], 'Darwin')
-  - powershell: choco install wash --version 0.8.1 -y
+  - powershell: choco install wash -y
     displayName: "Install wash (windows)"
     condition: eq(variables['Agent.OS'], 'Windows_NT')
   - script: cargo install wash-cli
