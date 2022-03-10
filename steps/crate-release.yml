@@ -2,15 +2,31 @@ parameters:
   - name: workingDirectory
     type: string
     default: "./"
-  - name: cratesToken
+  # The variable name where the crates publish token is stored
+  - name: cratesTokenVariable
     type: string
+  - name: foobar
+    type: string
+    default: ""
 
 steps:
-  - script: cargo login $CRATES_TOKEN
-    displayName: Cargo login
+  - script: echo -n $CRATES_TOKEN | wc
+    displayName: DEBUG
     env:
-      CRATES_TOKEN: ${{ parameters.cratesToken }}
+      CRATES_TOKEN: $(${{ parameters.cratesTokenVariable }})
+  - script: echo -n ${{ parameters.foobar }} | wc
+    displayName: DEBUG (inline)
 
-  - script: cargo publish --no-verify
-    displayName: Cargo publish
-    workingDirectory: ${{ parameters.workingDirectory }}
+  - script: echo -n $FOOBAR | wc
+    displayName: DEBUG
+    env:
+      FOOBAR: ${{ parameters.foobar }}
+
+  # - script: cargo login $CRATES_TOKEN
+  #   displayName: Cargo login
+  #   env:
+  #     CRATES_TOKEN: ${{ parameters.cratesToken }}
+
+  # - script: cargo publish --no-verify
+  #   displayName: Cargo publish
+  #   workingDirectory: ${{ parameters.workingDirectory }}
