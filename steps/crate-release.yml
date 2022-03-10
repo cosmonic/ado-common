@@ -6,7 +6,7 @@ parameters:
     type: string
 
 steps:
-  - script: cargo login $(CRATES_TOKEN)
+  - script: cargo login $CRATES_TOKEN
     displayName: Cargo login
     env:
       CRATES_TOKEN: ${{ parameters.cratesToken }}
