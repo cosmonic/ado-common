@@ -1,5 +1,7 @@
 steps:
-  - script: sudo snap install wash --devmode --edge
+  - script: |
+      curl -s https://packagecloud.io/install/repositories/wasmcloud/core/script.deb.sh | sudo bash
+      sudo apt install wash
     displayName: "Install wash (linux)"
     condition: eq(variables['Agent.OS'], 'Linux')
   - script: |
