@@ -9,7 +9,7 @@ parameters:
     default: []
 
 steps:
-  - script: rustup update && rustup component add clippy
+  - script: rustup update --no-self-update && rustup component add clippy
     displayName: Install latest Rust stable toolchain
   - ${{ if gt(length(parameters.components), 0) }}:
       - script: rustup component add ${{ join(' ', parameters.components) }}
