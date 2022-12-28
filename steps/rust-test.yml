@@ -16,6 +16,6 @@ steps:
     workingDirectory: ${{ parameters.workingDirectory }}
 
   - ${{ if parameters.runDocTests }}:
-      - script: cargo test --verbose --doc -- --no-capture
+      - script: cargo test --verbose --doc
         displayName: Run doc tests
         workingDirectory: ${{ parameters.workingDirectory }}
